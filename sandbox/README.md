@@ -1,5 +1,5 @@
 The sandbox is a place for you to individually learn about the EV3 robot.
-You need to work all of the TODO items in your folder to learn about that
+You need to work all of the TO DO items in your folder to learn about that
 features of the EV3 robot.  You can refer to the `/examples` folder
 for information about the api or visit one of these websites:
 
@@ -9,7 +9,7 @@ http://python-ev3dev.readthedocs.io/en/latest/
 Someones efforts to help provide examples just like the `/examples` folder:<br>
 http://ev3python.com
 
-**TODO: 1.**
+**DONE: 1.**
 From left to right where your team is sitting now assign each person a number.<br>
 The person farthest to the left is team member #1, on their right is team member #2,
 on their right is team member #3, and if you have a 4th person they are team member #4.
@@ -17,8 +17,8 @@ You will use that number to help you avoid messing up one another's work in your
 team repository. Conflicts in git can be resolved, but it's easier to just avoid them.
 
 The subfolders m1, m2, m3, and m4 that are within this `/sandbox` folder are all identical.
-- Team member #1 (fill in your own name here) will work all of the TODOs in the m1 folder
-- Team member #2 (fill in your own name here) will work all of the TODOs in the m2 folder
+- Team member #1 (Hailey Heidecker) will work all of the TODOs in the m1 folder
+- Team member #2 (Satyajit Arcot) will work all of the TODOs in the m2 folder
 - Team member #3 (Dutch Kipp) will work all of the TODOs in the m3 folder
 - Team member #4 (fill in your own name here) will work all of the TODOs in the m4 folder
 
