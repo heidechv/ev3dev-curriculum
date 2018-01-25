@@ -11,7 +11,7 @@ Authors: David Fisher and Hailey Heidecker.
 #   If your program says and prints anything at the start change it to print and say "Drive using encoders"
 
 import ev3dev.ev3 as ev3
-import time
+
 
 def main():
     print("--------------------------------------------")
@@ -45,6 +45,8 @@ def main():
 # ----------------------------------------------------------------------
 #  Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
+
 main()
 
 # DONE: 3. Add a beep after the drive motors stop (see code below).  Test your code to hear the beep AFTER movement.
@@ -80,5 +82,3 @@ main()
 # DONE: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
 # Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
-
-
