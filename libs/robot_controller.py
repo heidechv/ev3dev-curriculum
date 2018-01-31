@@ -31,11 +31,12 @@ class Snatch3r(object):
         self.right_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
 
     def turn_degrees(self, degrees_to_turn, speed_deg_per_second):
+        degrees_to_turn = degrees_to_turn * (450/90)
         if degrees_to_turn < 0:
-            self.right_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = -degrees_to_turn)
+            self.right_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = degrees_to_turn)
             self.left_motor.run_to_rel_pos(speed_sp = speed_deg_per_second, position_sp = -degrees_to_turn)
         else:
             self.right_motor.run_to_rel_pos(speed_sp = speed_deg_per_second, position_sp = degrees_to_turn)
-            self.left_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = degrees_to_turn)
+            self.left_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = -degrees_to_turn)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
