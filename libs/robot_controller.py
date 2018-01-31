@@ -12,18 +12,16 @@
 """
 
 import ev3dev.ev3 as ev3
-import math
-import time
 
 
 class Snatch3r(object):
     """Commands for the Snatch3r robot that might be useful in many different programs."""
     
-    # TODO: Implement the Snatch3r class as needed when working the sandox exercises
-    # (and delete these comments)
     def __init__(self):
         self.left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
+        assert self.left_motor
+        assert self.right_motor
 
     def drive_inches(self, inches_target, speed_deg_per_second):
         degrees = inches_target * 90
@@ -33,10 +31,10 @@ class Snatch3r(object):
     def turn_degrees(self, degrees_to_turn, speed_deg_per_second):
         degrees_to_turn = degrees_to_turn * (450/90)
         if degrees_to_turn < 0:
-            self.right_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = degrees_to_turn)
-            self.left_motor.run_to_rel_pos(speed_sp = speed_deg_per_second, position_sp = -degrees_to_turn)
+            self.right_motor.run_to_rel_pos(speed_sp=-speed_deg_per_second, position_sp=degrees_to_turn)
+            self.left_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=-degrees_to_turn)
         else:
-            self.right_motor.run_to_rel_pos(speed_sp = speed_deg_per_second, position_sp = degrees_to_turn)
-            self.left_motor.run_to_rel_pos(speed_sp = -speed_deg_per_second, position_sp = -degrees_to_turn)
+            self.right_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees_to_turn)
+            self.left_motor.run_to_rel_pos(speed_sp=-speed_deg_per_second, position_sp=-degrees_to_turn)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
