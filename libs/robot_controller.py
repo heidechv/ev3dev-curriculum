@@ -23,11 +23,13 @@ class Snatch3r(object):
         assert self.left_motor
         assert self.right_motor
 
+    "Robot drives for the inputted distance at the inputted speed"
     def drive_inches(self, inches_target, speed_deg_per_second):
         degrees = inches_target * 90
         self.left_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
         self.right_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
 
+    "Robot turns the inputted degrees at the inputted speed"
     def turn_degrees(self, degrees_to_turn, speed_deg_per_second):
         degrees_to_turn = degrees_to_turn * (450/90)
         if degrees_to_turn < 0:
