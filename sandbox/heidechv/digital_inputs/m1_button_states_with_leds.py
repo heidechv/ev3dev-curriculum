@@ -8,7 +8,7 @@ Much like we did in heidechv of the motors unit, later we will show you differen
 Authors: David Fisher and Hailey Heidecker.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
-# TODO: 2. Have someone on your team run this program as is on the EV3 and make sure everyone understands the code.
+# DONE: 2. Have someone on your team run this program as is on the EV3 and make sure everyone understands the code.
 #   You will exit the program by pressing the back button on the EV3 brick (button just below the screen).
 #   The back button is already implemented to exit the program (as you can see in the code below).
 
@@ -39,7 +39,7 @@ def main():
 #    ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
 #    ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
     # ev3.Leds.all_off()  # Could also use this single command if turning both LEDs off.
- #   print('Press the Back button on the EV3 to exit this program.')
+#   print('Press the Back button on the EV3 to exit this program.')
 
     # Buttons on EV3 (the real focus of this module)
     btn = ev3.Button()  # Construct the one and only EV3 Button object
@@ -82,7 +82,7 @@ def main():
             ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
             ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
 
-        # TODO: 4. Implement the down button to change the color of both LEDs.
+        # DONE: 4. Implement the down button to change the color of both LEDs.
         #   The first press to down should make both LEDs GREEN, the next press makes them RED, then AMBER, then off.
         #   If the user presses the down button again, wrap around the list to GREEN and continue as before.
         #   If the user holds down the button, figure out how to make the color change still only happen once.
@@ -90,14 +90,17 @@ def main():
         #     with a while loop that blocks code execution until the down instance variable is False.
         #     Use a time.sleep(0.01) inside the while loop to do nothing but wait for the button to be released.
         if btn.down:
-            k = 0
-            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.led_colors[k])
-            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.led_colors[k])
-            k = k + 1
-            if k > len(led_colors):
-                k = 0
+            current_color_index = current_color_index + 1
+            if current_color_index > len(led_colors) - 1:
+                current_color_index = 0
+            while True:
+                print('Down')
+                ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[current_color_index])
+                ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[current_color_index])
+                if not btn.down:
+                    break
 
-        # TODO: 5. Formally test your work. When you think you have the problem complete run these tests:
+        # DONE: 5. Formally test your work. When you think you have the problem complete run these tests:
         #   Press Left - Green left LED is on (try holding the button down for a few seconds when you to the press)
         #   Press Right - Right right LED is on
         #   Press Up - Both LEDs are off
@@ -109,7 +112,7 @@ def main():
         #   Press Down - Both LEDs are Red (the cycle repeats)
         #   Press Back - Both LEDs turn Green, the robot says Goodbye and the program exits
 
-        # TODO: 6. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
+        # DONE: 6. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
         #
         # Observation you should make, working with buttons as 'states' is functional but usually 'events' work better.
         # Also observe that we don't use the Enter button.  Enter can cause issues since your program is running at the
