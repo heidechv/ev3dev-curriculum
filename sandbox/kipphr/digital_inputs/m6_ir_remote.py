@@ -25,8 +25,8 @@
     -- Pressing the Back button will allow your program to end.  It should stop motors, turn on both green LEDs, and
        then print and say Goodbye.  You will need to implement a new robot method called shutdown to handle this task.
 
-Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+Authors: David Fisher and Dutch Kipp.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -66,14 +66,27 @@ def main():
     btn = ev3.Button()
     btn.on_backspace = lambda state: handle_shutdown(state, dc)
 
+    rc1 = ev3.RemoteControl(channel=1)
+    rc1.on_red_up = lambda state: handle_red_up_1(state, robot)
+    rc1.on_red_down = lambda state: handle_red_down_1(state, robot)
+    rc1.on_blue_up = lambda state: handle_blue_up_1(state, robot)
+    rc1.on_blue_down = lambda state: handle_blue_down_1(state, robot)
+
+    rc2 = ev3.RemoteControl(channel=2)
+    rc2.on_red_up = lambda state: handle_arm_up_button(state, robot)
+    rc2.on_red_down = lambda state: handle_arm_down_button(state, robot)
+    rc2.on_blue_up = lambda state: handle_calibrate_button(state, robot)
+
     robot.arm_calibration()  # Start with an arm calibration in this program.
 
     while dc.running:
         # TODO: 5. Process the RemoteControl objects.
         btn.process()
+        rc1.process()
+        rc2.process()
         time.sleep(0.01)
 
-    # TODO: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
+    # done: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
     # as necessary to implement the method below as per the instructions in the opening doc string. Once the code has
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
@@ -138,6 +151,42 @@ def handle_shutdown(button_state, dc):
     """
     if button_state:
         dc.running = False
+
+
+def handle_red_up_1(button_state, robot):
+    if button_state:
+        robot.left_motor.run_forever(speed_sp=600)
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+    else:
+        robot.left_motor.stop(stop_action='brake')
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+
+
+def handle_red_down_1(button_state, robot):
+    if button_state:
+        robot.left_motor.run_forever(speed_sp=-600)
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.RED)
+    else:
+        robot.left_motor.stop(stop_action='brake')
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+
+
+def handle_blue_up_1(button_state, robot):
+    if button_state:
+        robot.right_motor.run_forever(speed_sp=600)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
+    else:
+        robot.right_motor.stop(stop_action='brake')
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+
+
+def handle_blue_down_1(button_state, robot):
+    if button_state:
+        robot.right_motor.run_forever(speed_sp=-600)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+    else:
+        robot.right_motor.stop(stop_action='brake')
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.

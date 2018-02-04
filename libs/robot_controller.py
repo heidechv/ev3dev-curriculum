@@ -75,3 +75,7 @@ class Snatch3r(object):
         self.arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range)
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
         ev3.Sound.beep()
+
+    """Exits the current program and says "goodbye". """
+    def shutdown(self):
+        ev3.Sound.speak("Goodbye").wait()
