@@ -4,7 +4,7 @@ This module lets you practice using the encoder to determine distances while blo
 
 You will now use a run_to_rel_pos command to implement the action drive inches action.
 
-Authors: David Fisher and Hailey Heidecker.
+Authors: David Fisher and Hailey Heidecker and Dutch Kipp.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 # DONE: 2. Copy the contents of your m1_drive_timed.py and paste that text into this file below these comments.
