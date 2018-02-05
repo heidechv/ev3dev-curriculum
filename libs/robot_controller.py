@@ -76,6 +76,14 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
         ev3.Sound.beep()
 
+    def loop_forever(self):
+        """Creates an Infinite loop"""
+        self.running = True
+        while self.running:
+            time.sleep(0.1)
+
     def shutdown(self):
-        """Exits the current program and says "goodbye". """
+        """ Ends the Infinite loop"""
+        self.running = False
         ev3.Sound.speak("Goodbye").wait()
+
