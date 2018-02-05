@@ -28,14 +28,14 @@ class Snatch3r(object):
         assert self.arm_motor
         assert self.touch_sensor
 
-    "Robot drives for the inputted distance at the inputted speed"
     def drive_inches(self, inches_target, speed_deg_per_second):
+        "Robot drives for the inputted distance at the inputted speed"
         degrees = inches_target * 90
         self.left_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
         self.right_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
 
-    "Robot turns the inputted degrees at the inputted speed"
     def turn_degrees(self, degrees_to_turn, speed_deg_per_second):
+        "Robot turns the inputted degrees at the inputted speed"
         degrees_to_turn = degrees_to_turn * (450/90)
         if degrees_to_turn < 0:
             self.right_motor.run_to_rel_pos(speed_sp=-speed_deg_per_second, position_sp=degrees_to_turn)
@@ -46,8 +46,8 @@ class Snatch3r(object):
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
 
-    """Calibrates the arm by raising it up and all the way down. Then sets that position to zero."""
     def arm_calibration(self):
+        """Calibrates the arm by raising it up and all the way down. Then sets that position to zero."""
         self.arm_motor.run_forever(speed_sp=800)
         while not self.touch_sensor.is_pressed:
             time.sleep(0.01)
@@ -61,21 +61,21 @@ class Snatch3r(object):
 
         self.arm_motor.position = 0  # Calibrate the down position as 0 (this line is correct as is).
 
-    """Raises the robot's arm all the way up"""
     def arm_up(self):
+        """Raises the robot's arm all the way up"""
         self.arm_motor.run_forever(speed_sp=800)
         while not self.touch_sensor.is_pressed:
             time.sleep(0.01)
         self.arm_motor.stop(stop_action='brake')
         ev3.Sound.beep()
 
-    """Lowers the robot's arm all the way down"""
     def arm_down(self):
+        """Lowers the robot's arm all the way down"""
         arm_revolutions_for_full_range = 14.2 * 360
         self.arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range)
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
         ev3.Sound.beep()
 
-    """Exits the current program and says "goodbye". """
     def shutdown(self):
+        """Exits the current program and says "goodbye". """
         ev3.Sound.speak("Goodbye").wait()
