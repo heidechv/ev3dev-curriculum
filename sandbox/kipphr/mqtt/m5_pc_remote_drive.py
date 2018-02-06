@@ -27,6 +27,7 @@ Authors: David Fisher and PUT_YOUR_NAME_HERE.
 
 import tkinter
 from tkinter import ttk
+import math
 
 import mqtt_remote_method_calls as com
 
@@ -114,6 +115,12 @@ def main():
 # Observations you should make, you did basically this same program using the IR Remote, but your computer can be a
 # remote control that can do A LOT more than an IR Remote.  We are just doing the basics here.
 
+def turn_right(mqtt_client, left_sp_entry, right_sp_entry):
+    mqtt_client.send_message('drive', [int(left_sp_entry.get()), -int(right_sp_entry.get())])
+
+
+def turn_left(mqtt_client, left_sp_entry, right_sp_entry):
+    mqtt_client.send_message('drive', [-int(left_sp_entry.get()), int(right_sp_entry.get())])
 
 # Arm command callbacks
 def send_up(mqtt_client):

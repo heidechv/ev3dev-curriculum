@@ -3,7 +3,7 @@
 The goal for this module is to interact with your EV3 using MQTT.  You will only write code on the PC side this time.
 You will need to run the m4_ev3_petals_on_a_rose.py on your EV3, but you don't need to modify that file (you don't even
 need to ever open that file).  Your EV3 is acting as a puzzle, your goal is to use MQTT to solve the puzzle.
-
+                                            
 The way the puzzle works is that five dice roll and somehow they combine to a single number.
 You need to figure out the pattern and win the game.  To win the game you must...
 
