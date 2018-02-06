@@ -144,7 +144,7 @@ def turn_right(mqtt_client, left_sp_entry, right_sp_entry):
 
 def turn_left(mqtt_client, left_sp_entry, right_sp_entry):
     mqtt_client.send_message('drive', [-int(left_sp_entry.get()), int(right_sp_entry.get())])
-    
+
 
 # Arm command callbacks
 def send_up(mqtt_client):
