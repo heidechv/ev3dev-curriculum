@@ -123,26 +123,27 @@ def main():
 # Observations you should make, you did basically this same program using the IR Remote, but your computer can be a
 # remote control that can do A LOT more than an IR Remote.  We are just doing the basics here.
 def drive_forward(mqtt_client, left_speed_entry, right_speed_entry):
-    left_speed = int(left_speed_entry.get())
-    right_speed = int(right_speed_entry.get())
-    mqtt_client.send_message('drive' [left_speed, right_speed])
+    print('drive forward')
+    mqtt_client.send_message('drive', [int(left_speed_entry.get()), int(right_speed_entry.get())])
 
 
 def drive_back(mqtt_client, left_speed_entry, right_speed_entry):
-    left_speed = -int(left_speed_entry.get())
-    right_speed = -int(right_speed_entry.get())
-    mqtt_client.send_message('drive', [left_speed, right_speed])
+    print('drive back')
+    mqtt_client.send_message('drive', [-int(left_speed_entry.get()), -int(right_speed_entry.get())])
 
 
 def stop(mqtt_client):
+    print('stop')
     mqtt_client.send_message('stop')
 
 
 def turn_right(mqtt_client, left_sp_entry, right_sp_entry):
+    print('turn right')
     mqtt_client.send_message('drive', [int(left_sp_entry.get()), -int(right_sp_entry.get())])
 
 
 def turn_left(mqtt_client, left_sp_entry, right_sp_entry):
+    print('turn left')
     mqtt_client.send_message('drive', [-int(left_sp_entry.get()), int(right_sp_entry.get())])
 
 

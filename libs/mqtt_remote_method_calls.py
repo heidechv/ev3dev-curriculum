@@ -198,7 +198,7 @@ class MqttClient(object):
         print("Connecting to mqtt broker {}".format(mqtt_broker_ip_address), end="")
         self.client.loop_start()
 
-    def send_message(self, function_name, parameter_list=None):
+    def send_message(self, function_name: object, parameter_list: object = None) -> object:
         """
         Sends a message to the MQTT broker using the publish_topic_name that was set by the connect method.
 

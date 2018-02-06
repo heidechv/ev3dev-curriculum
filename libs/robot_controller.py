@@ -27,6 +27,7 @@ class Snatch3r(object):
         self.touch_sensor = ev3.TouchSensor()
         assert self.arm_motor
         assert self.touch_sensor
+        self.running = None
 
     def drive_inches(self, inches_target, speed_deg_per_second):
         "Robot drives for the inputted distance at the inputted speed"
@@ -85,6 +86,10 @@ class Snatch3r(object):
     def shutdown(self):
         """ Ends the Infinite loop"""
         self.running = False
+        self.left_motor.stop(stop_action='brake')
+        self.right_motor.stop(stop_action='brake')
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
         ev3.Sound.speak("Goodbye").wait()
 
     def drive(self,left_speed, right_speed):
