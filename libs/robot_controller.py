@@ -87,3 +87,11 @@ class Snatch3r(object):
         self.running = False
         ev3.Sound.speak("Goodbye").wait()
 
+    def drive(self,left_speed, right_speed):
+        self.left_motor.run_forever(speed=left_speed)
+        self.right_motor.run_forever(speed=right_speed)
+
+    def stop(self):
+        self.left_motor.stop(stop_action='brake')
+        self.right_motor.stop(stop_action='brake')
+
