@@ -80,7 +80,7 @@ def follow_the_line(robot, black_level):
     # should drive straight or turn to the right.  You will need to test and refine your code until it works well.
     # Optional extra - For a harder challenge could you drive on the black line and handle left or right turns?
     ev3.Sound.speak("Follow the yellow brick road").wait()
-    
+
     while True:
         print(robot.color_sensor.reflected_light_intensity)
         if (robot.color_sensor.reflected_light_intensity > black_level - 3) or (robot.color_sensor.reflected_light_intensity < black_level + 3):
