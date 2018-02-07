@@ -30,13 +30,13 @@ class Snatch3r(object):
         self.running = None
 
     def drive_inches(self, inches_target, speed_deg_per_second):
-        "Robot drives for the inputted distance at the inputted speed"
+        """"Robot drives for the inputted distance at the inputted speed"""
         degrees = inches_target * 90
         self.left_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
         self.right_motor.run_to_rel_pos(speed_sp=speed_deg_per_second, position_sp=degrees, stop_action='brake')
 
     def turn_degrees(self, degrees_to_turn, speed_deg_per_second):
-        "Robot turns the inputted degrees at the inputted speed"
+        """"Robot turns the inputted degrees at the inputted speed"""
         degrees_to_turn = degrees_to_turn * (450/90)
         if degrees_to_turn < 0:
             self.right_motor.run_to_rel_pos(speed_sp=-speed_deg_per_second, position_sp=degrees_to_turn)
@@ -92,11 +92,12 @@ class Snatch3r(object):
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
         ev3.Sound.speak("Goodbye").wait()
 
-    def drive(self,left_speed, right_speed):
+    def drive(self, left_speed, right_speed):
+        """Drives robot at inputted motor speeds"""
         self.left_motor.run_forever(speed_sp=left_speed)
         self.right_motor.run_forever(speed_sp=right_speed)
 
     def stop(self):
+        """Stops robot"""
         self.left_motor.stop(stop_action='brake')
         self.right_motor.stop(stop_action='brake')
-
