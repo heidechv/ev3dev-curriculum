@@ -23,11 +23,16 @@ class Snatch3r(object):
         self.right_motor = ev3.LargeMotor(ev3.OUTPUT_C)
         assert self.left_motor
         assert self.right_motor
+
         self.arm_motor = ev3.MediumMotor(ev3.OUTPUT_A)
         self.touch_sensor = ev3.TouchSensor()
         assert self.arm_motor
         assert self.touch_sensor
+
         self.running = None
+
+        self.color_sensor = ev3.ColorSensor()
+        assert self.color_sensor
 
     def drive_inches(self, inches_target, speed_deg_per_second):
         """"Robot drives for the inputted distance at the inputted speed"""
@@ -101,3 +106,13 @@ class Snatch3r(object):
         """Stops robot"""
         self.left_motor.stop(stop_action='brake')
         self.right_motor.stop(stop_action='brake')
+
+    def turn_right(self, motor_speed):
+        """Robot turns right at given speed"""
+        self.left_motor.run_forever(speed_sp=motor_speed)
+        self.right_motor.run_forever(speed_sp=-motor_speed)
+
+    def turn_left(self, motor_speed):
+        """Robot turns left at given speed"""
+        self.left_motor.run_forever(speed_sp=-motor_speed)
+        self.right_motor.run_forever(speed_sp=motor_speed)
