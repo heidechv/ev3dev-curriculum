@@ -34,6 +34,9 @@ class Snatch3r(object):
         self.color_sensor = ev3.ColorSensor()
         assert self.color_sensor
 
+        self.ir_sensor = ev3.InfraredSensor()
+        assert self.ir_sensor
+
     def drive_inches(self, inches_target, speed_deg_per_second):
         """"Robot drives for the inputted distance at the inputted speed"""
         degrees = inches_target * 90
