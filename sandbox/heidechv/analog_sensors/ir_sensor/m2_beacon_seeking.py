@@ -59,7 +59,7 @@ def seek_beacon(robot):
 
     # DONE: 2. Create a BeaconSeeker object on channel 1.
     beacon_seeker = ev3.BeaconSeeker(channel=1)
-    forward_speed = 300
+    forward_speed = 200
     turn_speed = 100
 
     while not robot.touch_sensor.is_pressed:
@@ -94,9 +94,11 @@ def seek_beacon(robot):
                 # Close enough of a heading to move forward
                 print("On the right heading. Distance: ", current_distance)
                 # You add more!
-                if current_distance > 4:
+                if current_distance > 1:
                     robot.drive(forward_speed, forward_speed)
                 else:
+                    robot.drive_inches(2.5, 200)
+                    robot.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
                     robot.stop()
                     return True
 
