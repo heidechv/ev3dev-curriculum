@@ -36,7 +36,7 @@ def main():
         left_motor.run_to_rel_pos(speed_sp=speed, position_sp=degrees, stop_action='brake')
         right_motor.run_to_rel_pos(speed_sp=speed, position_sp=degrees, stop_action='brake')
         left_motor.wait_while(ev3.Motor.STATE_RUNNING)
-        right_motor.wait_while((ev3.Motor.STATE_RUNNING))
+        right_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep().wait()
 
     print("Goodbye!")
