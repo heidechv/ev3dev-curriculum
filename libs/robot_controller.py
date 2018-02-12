@@ -72,7 +72,7 @@ class Snatch3r(object):
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
         ev3.Sound.beep()
 
-        self.arm_motor.position = 0  
+        self.arm_motor.position = 0
 
     def arm_up(self):
         """Raises the robot's arm all the way up"""
