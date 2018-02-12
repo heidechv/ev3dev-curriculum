@@ -4,6 +4,11 @@ import time
 
 
 def main():
+    print("--------------------------------------------")
+    print("Simon Says")
+    print(" Press the touch sensor to exit")
+    print("--------------------------------------------")
+
     robot = robo.Snatch3r()
 
     mqtt = com.MqttClient(robot)
