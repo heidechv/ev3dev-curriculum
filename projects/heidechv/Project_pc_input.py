@@ -1,22 +1,20 @@
 import tkinter
 from tkinter import ttk
 import mqtt_remote_method_calls as com
-import time
 
 
 class DataContainer(object):
 
     def __init__(self):
         self.color_order = []
+        self.color_sig = []
 
 
 class MyDelegate(object):
-    def __init__(self):
-        self.state = True
-
+    
     def shutdown(self):
-        self.state = False
-
+        print('Exiting')
+        exit()
 
 
 def main():
@@ -32,59 +30,59 @@ def main():
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()
 
-    blue_button = ttk.Button(main_frame, text="Blue")
+    blue_button = tkinter.Button(main_frame, bg="Blue", height=1, width=9)
     blue_button.grid(row=1, column=2)
     blue_button['command'] = lambda: blue_pressed(dc)
 
-    green_button = ttk.Button(main_frame, text="Green")
+    green_button = tkinter.Button(main_frame, bg="Green", height=1, width=9)
     green_button.grid(row=2, column=1)
     green_button['command'] = lambda: green_pressed(dc)
 
-    red_button = ttk.Button(main_frame, text="Red")
+    red_button = tkinter.Button(main_frame, bg="Red", height=1, width=9)
     red_button.grid(row=2, column=3)
     red_button['command'] = lambda: red_pressed(dc)
 
-    yellow_button = ttk.Button(main_frame, text="Yellow")
+    yellow_button = tkinter.Button(main_frame, bg="Yellow", height=1, width=9)
     yellow_button.grid(row=3, column=2)
     yellow_button['command'] = lambda: yellow_pressed(dc)
 
     enter_button = ttk.Button(main_frame, text='Enter')
     enter_button.grid(row=2, column=2)
-    enter_button['command'] = lambda: enter_pressed(dc)
+    enter_button['command'] = lambda: enter_pressed(dc, mqtt)
 
     root.mainloop()
 
-    while my_delegate.state:
-        time.sleep(.1)
-
-    print('Exiting')
-    mqtt.close()
-    exit()
 
 def blue_pressed(dc):
-    dc.color_order = dc.color_order + ['blue']
+    dc.color_order = dc.color_order + ['Blue']
+    dc.color_sig = dc.color_sig + ['SIG1']
     print(dc.color_order)
 
 
 def green_pressed(dc):
-    dc.color_order = dc.color_order + ['green']
+    dc.color_order = dc.color_order + ['Green']
+    dc.color_sig = dc.color_sig + ['SIG2']
     print(dc.color_order)
 
 
 def red_pressed(dc):
-    dc.color_order = dc.color_order + ['red']
+    dc.color_order = dc.color_order + ['Red']
+    dc.color_sig = dc.color_sig + ['SIG3']
     print(dc.color_order)
 
 
 def yellow_pressed(dc):
-    dc.color_order = dc.color_order + ['yellow']
+    dc.color_order = dc.color_order + ['Yellow']
+    dc.color_sig = dc.color_sig + ['SIG4']
     print(dc.color_order)
 
 
-def enter_pressed(dc):
+def enter_pressed(dc, mqtt):
     for k in range(len(dc.color_order)):
-        print(dc.color_order[k])
+        mqtt.send_message('find_color', [dc.color_sig[k], dc.color_order[k]])
+        print(dc.color_order[k], dc.color_sig[k])
     dc.color_order = []
+    dc.color_sig = []
 
 
 main()

@@ -164,3 +164,19 @@ class Snatch3r(object):
         print("Abandon ship!")
         self.stop()
         return False
+
+    def find_color(self, color_sig, color):
+        self.pixy.mode = color_sig
+        x = self.pixy.value(1)
+        turn_speed = 100
+
+        while 150 < x < 170:
+            if x < 150:
+                self.turn_left(turn_speed)
+            else:
+                self.turn_right(turn_speed)
+
+            time.sleep(0.25)
+
+        self.stop()
+        ev3.Sound.speak(color).wait()

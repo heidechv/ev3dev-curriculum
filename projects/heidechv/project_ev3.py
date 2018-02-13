@@ -4,10 +4,10 @@ import time
 
 
 def main():
-    print("--------------------------------------------")
-    print("Simon Says")
-    print(" Press the touch sensor to exit")
-    print("--------------------------------------------")
+    print('--------------------------------------------')
+    print('Simon Says')
+    print('Press the touch sensor to exit')
+    print('--------------------------------------------')
 
     robot = robo.Snatch3r()
 
@@ -17,9 +17,9 @@ def main():
     while not robot.touch_sensor.is_pressed:
         time.sleep(.1)
 
-    mqtt.send_message("shutdown")
+    mqtt.send_message('shutdown')
     robot.shutdown()
-    mqtt.connect_to_pc()
+    mqtt.close()
 
 
 main()
