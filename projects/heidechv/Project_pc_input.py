@@ -11,7 +11,7 @@ class DataContainer(object):
 
 
 class MyDelegate(object):
-    
+
     def shutdown(self):
         print('Exiting')
         exit()
@@ -26,6 +26,7 @@ def main():
     mqtt.connect_to_ev3()
 
     root = tkinter.Tk()
+    root.title('Simon Says')
 
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()
