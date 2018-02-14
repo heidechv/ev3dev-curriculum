@@ -180,3 +180,17 @@ class Snatch3r(object):
 
         self.stop()
         ev3.Sound.speak(color).wait()
+
+    def dance(self, speed):
+        self.drive(speed, speed)
+        while True:
+            if self.color_sensor.color == ev3.ColorSensor.COLOR_RED:
+                self.stop()
+                self.arm_up()
+                self.arm_down()
+                self.drive(speed, speed)
+            if self.color_sensor.color == ev3.ColorSensor.COLOR_BLACK:
+                self.stop()
+                self.drive(speed, -speed)
+                self.stop()
+                self.drive(speed, speed)
