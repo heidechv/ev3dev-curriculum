@@ -165,16 +165,8 @@ class Snatch3r(object):
         self.stop()
         return False
 
-    def find_color(self, color):
-        if color == 'Blue':
-            self.pixy.mode = 'SIG1'
-        if color == 'Green':
-            self.pixy.mode = 'SIG2'
-        if color == 'Red':
-            self.pixy.mode = 'SIG3'
-        if color == 'Yellow':
-            self.pixy.mode = 'SIG4'
-
+    def find_color(self,color_sig, color):
+        self.pixy.mode = color_sig
         x = self.pixy.value(1)
         turn_speed = 100
 
