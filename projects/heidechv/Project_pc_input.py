@@ -58,6 +58,7 @@ def blue_pressed(dc):
     dc.color_order = dc.color_order + ['Blue']
     dc.color_sig = dc.color_sig + ['SIG1']
     print(dc.color_order)
+    
 
 
 def green_pressed(dc):
