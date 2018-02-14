@@ -18,8 +18,8 @@ def main():
         time.sleep(.1)
 
     mqtt.send_message('shutdown')
-    robot.shutdown()
     mqtt.close()
+    robot.shutdown()
 
 
 main()
