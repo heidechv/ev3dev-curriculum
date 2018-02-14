@@ -193,7 +193,6 @@ class Snatch3r(object):
 
         ev3.Sound.speak(color).wait()
 
-
     def dance(self, speed):
         self.drive(speed, speed)
         while True:
