@@ -58,7 +58,6 @@ def blue_pressed(dc):
     dc.color_order = dc.color_order + ['Blue']
     dc.color_sig = dc.color_sig + ['SIG1']
     print(dc.color_order)
-    
 
 
 def green_pressed(dc):
@@ -81,7 +80,7 @@ def yellow_pressed(dc):
 
 def enter_pressed(dc, mqtt):
     for k in range(len(dc.color_order)):
-        mqtt.send_message('find_color', [dc.color_sig[k], dc.color_order[k]])
+        mqtt.send_message('find_color', [dc.color_order[k]])
         print(dc.color_order[k], dc.color_sig[k])
     dc.color_order = []
     dc.color_sig = []

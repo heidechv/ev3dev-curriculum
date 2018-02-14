@@ -165,21 +165,34 @@ class Snatch3r(object):
         self.stop()
         return False
 
-    def find_color(self, color_sig, color):
-        self.pixy.mode = color_sig
+    def find_color(self, color):
+        if color == 'Blue':
+            self.pixy.mode = 'SIG1'
+        if color == 'Green':
+            self.pixy.mode = 'SIG2'
+        if color == 'Red':
+            self.pixy.mode = 'SIG3'
+        if color == 'Yellow':
+            self.pixy.mode = 'SIG4'
+
         x = self.pixy.value(1)
         turn_speed = 100
 
-        while 150 < x < 170:
+        color_found = False
+
+        while not color_found :
             if x < 150:
                 self.turn_left(turn_speed)
-            else:
+            elif x > 170:
                 self.turn_right(turn_speed)
+            elif 150 < x < 170:
+                self.stop()
+                color_found = True
 
             time.sleep(0.25)
 
-        self.stop()
         ev3.Sound.speak(color).wait()
+
 
     def dance(self, speed):
         self.drive(speed, speed)
