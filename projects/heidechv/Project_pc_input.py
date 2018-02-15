@@ -12,19 +12,16 @@ class DataContainer(object):
 
 class MyDelegate(object):
 
+    def __init__(self, root):
+        self.root = root
+
     def shutdown(self):
         print('Exiting')
+        self.root.destroy()
         exit()
 
 
 def main():
-    dc = DataContainer()
-
-    my_delegate = MyDelegate()
-
-    mqtt = com.MqttClient(my_delegate)
-    mqtt.connect_to_ev3()
-
     root = tkinter.Tk()
     root.title('Simon Says')
 
@@ -50,6 +47,13 @@ def main():
     enter_button = ttk.Button(main_frame, text='Enter')
     enter_button.grid(row=2, column=2)
     enter_button['command'] = lambda: enter_pressed(dc, mqtt)
+
+    dc = DataContainer()
+
+    my_delegate = MyDelegate(root)
+
+    mqtt = com.MqttClient(my_delegate)
+    mqtt.connect_to_ev3()
 
     root.mainloop()
 
@@ -80,7 +84,7 @@ def yellow_pressed(dc):
 
 def enter_pressed(dc, mqtt):
     for k in range(len(dc.color_order)):
-        mqtt.send_message('find_color', [dc.color_order[k]])
+        mqtt.send_message('find_color', [dc.color_sig[k], dc.color_order[k]])
         print(dc.color_order[k], dc.color_sig[k])
     dc.color_order = []
     dc.color_sig = []
