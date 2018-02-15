@@ -167,12 +167,13 @@ class Snatch3r(object):
 
     def find_color(self,color_sig, color):
         self.pixy.mode = color_sig
-        x = self.pixy.value(1)
         turn_speed = 100
 
         color_found = False
 
         while not color_found :
+            x = self.pixy.value(1)
+
             if x < 150:
                 self.turn_left(turn_speed)
             elif x > 170:
