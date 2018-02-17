@@ -165,13 +165,13 @@ class Snatch3r(object):
         self.stop()
         return False
 
-    def find_color(self,color_sig, color):
+    def find_color(self, color_sig, color):
         self.pixy.mode = color_sig
         turn_speed = 100
 
         color_found = False
 
-        while not color_found :
+        while not color_found:
             x = self.pixy.value(1)
 
             if x < 150:
