@@ -5,24 +5,21 @@ import ev3dev.ev3 as ev3
 import time
 import robot_controller as robo
 
+
 class DataContainer(object):
     def __init__(self):
+        self.start_time = 0
+        self.end_time = 0
 
-
-
-class MyDelegate(object):
-    def shutdown(self):
-        print('Exiting')
-        exit()
+    def stop_race(self):
+        self.end_time = time.time()
 
 
 def main():
     robot = robo.Snatch3r()
     dc = DataContainer()
 
-    my_delegate = MyDelegate()
-
-    mqtt = com.MqttClient(my_delegate)
+    mqtt = com.MqttClient(dc)
     mqtt.connect_to_ev3()
 
     root = tkinter.Tk()
@@ -31,32 +28,28 @@ def main():
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()
 
-    red_button = ttk.Button(main_frame, text="Go To Red")
-    red_button.grid(row=1, column=1)
-    red_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_RED)
+    start_button = ttk.Button(main_frame, text="Start")
+    start_button.grid(row=1, column=1)
+    start_button['command'] = lambda: start_race(mqtt, dc)
+    root.bind('<space>', lambda: start_race(mqtt, dc))
 
-    white_button = ttk.Button(main_frame, text="Go To White")
-    white_button.grid(row=1, column=2)
-    white_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_WHITE)
+    right_button = ttk.Button(main_frame, text="Right")
+    right_button.grid(row=2, column=2)
+    right_button['command'] = lambda: turn(mqtt, 'right')
+    root.bind('<right>', lambda: turn(mqtt, 'right'))
 
-    black_button = ttk.Button(main_frame, text="Go To Black")
-    black_button.grid(row=1, column=3)
-    black_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_BLACK)
+    left_button = ttk.Button(main_frame, text="Left")
+    left_button.grid(row=2, column=1)
+    left_button['command'] = lambda: turn(mqtt, 'left')
+    root.bind('<left>', lambda: turn(mqtt, 'left'))
+
+    time_label = ttk.Label(main_frame, text='Time: ')
+    time_label.grid(row=1, column=2)
+
+    race_time = ttk.Label(main_frame, text=(dc.end_time - dc.start_time))
+    race_time.grid(row=1, column=3)
 
     root.mainloop()
-
-
-def drive_to_color(color_to_seek):
-    ev3.Sound.speak("Seeking your color").wait()
-
-    robot.drive(600, 600)
-
-    while True:
-        if robot.color_sensor.color == color_to_seek:
-            robot.stop()
-            break
-
-    ev3.Sound.speak("Found your color").wait()
 
 
 def handle_shutdown(button_state, dc):
@@ -64,6 +57,17 @@ def handle_shutdown(button_state, dc):
     if button_state:
         dc.running = False
 
+
+def start_race(mqtt, dc):
+    dc.start_time = time.time()
+    mqtt.send_message('start_race')
+
+
+def turn(mqtt, direction):
+    if direction == 'right':
+        mqtt.send_message('turn_right', [469])
+    if direction == 'left':
+        mqtt.send_message('turn_left', [469])
 
 
 main()

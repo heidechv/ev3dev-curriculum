@@ -199,3 +199,6 @@ class Snatch3r(object):
                 self.drive(speed, -speed)
                 self.stop()
                 self.drive(speed, speed)
+
+    def start_race(self):
+        self.running == True
