@@ -9,11 +9,9 @@ def main():
     mqtt.connect_to_pc()
 
     while not robot.touch_sensor.is_pressed:
-        while robot.race:
-            time.sleep(.1)
+        time.sleep(.1)
 
-        mqtt.send_message('stop_race')
-
+    mqtt.send_message('shutdown')
     mqtt.close()
     robot.shutdown()
 

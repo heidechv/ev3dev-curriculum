@@ -3,12 +3,25 @@ from tkinter import ttk
 import mqtt_remote_method_calls as com
 
 
+class MyDelegate(object):
+    def __init__(self, root):
+        self.root = root
+
+    def shutdown(self):
+        print('Exiting')
+        self.root.destroy()
+        exit()
+
+
 def main():
-    mqtt = com.MqttClient()
-    mqtt.connect_to_ev3()
 
     root = tkinter.Tk()
-    root.title('Go To A Color')
+    root.title('Mario Kart!')
+
+    my_del = MyDelegate(root)
+
+    mqtt = com.MqttClient(my_del)
+    mqtt.connect_to_ev3()
 
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()

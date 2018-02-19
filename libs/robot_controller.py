@@ -215,3 +215,4 @@ class Snatch3r(object):
             if self.color_sensor.color == ev3.ColorSensor.COLOR_RED:
                 self.drive(900, 900)
                 time.sleep(3)
+                self.drive(150, 150)
