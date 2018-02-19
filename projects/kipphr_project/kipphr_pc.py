@@ -1,6 +1,7 @@
-import tkinter
+import tkinter as tk
 from tkinter import ttk
 import mqtt_remote_method_calls as com
+from PIL import Image, ImageTk
 
 
 class MyDelegate(object):
@@ -15,7 +16,7 @@ class MyDelegate(object):
 
 def main():
 
-    root = tkinter.Tk()
+    root = tk.Tk()
     root.title('Mario Kart!')
 
     my_del = MyDelegate(root)
@@ -25,6 +26,11 @@ def main():
 
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()
+
+    image = Image.open("C:\\Users\\kipphr\\Downloads\\mariokart.jpg")
+    photo = ImageTk.PhotoImage(image)
+    background_label = tk.Label(main_frame, image=photo)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     forward_button = ttk.Button(main_frame, text="Forward")
     forward_button.grid(row=1, column=2)
