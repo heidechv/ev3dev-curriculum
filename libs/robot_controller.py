@@ -41,8 +41,6 @@ class Snatch3r(object):
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
         assert self.pixy
 
-        self.race = None
-
     def drive_inches(self, inches_target, speed_deg_per_second):
         """"Robot drives for the inputted distance at the inputted speed"""
         degrees = inches_target * 90
@@ -202,15 +200,18 @@ class Snatch3r(object):
                 self.stop()
                 self.drive(speed, speed)
 
-    def start_race(self):
-        self.race = True
-
-    def drive_by_colors(self):
-        while self.race:
+    def drive_by_colors(self, direction):
+        if direction == 'right':
+            self.turn_right(150)
+        if direction == 'left':
+            self.turn_left(150)
+        if direction == 'stop':
+            self.stop()
+        if direction == 'forward':
+            self.drive(150, 150)
             if self.color_sensor.color == ev3.ColorSensor.COLOR_BLACK:
                 self.turn_degrees(720, 500)
+                self.drive(150, 150)
             if self.color_sensor.color == ev3.ColorSensor.COLOR_RED:
                 self.drive(900, 900)
-                time.sleep(3.5)
-            print(self.color_sensor.color)
-            self.drive(500, 500)
+                time.sleep(3)
