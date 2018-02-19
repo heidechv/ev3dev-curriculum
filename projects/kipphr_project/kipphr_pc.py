@@ -65,12 +65,5 @@ def handle_shutdown(button_state, dc):
         dc.running = False
 
 
-def enter_pressed(dc, mqtt):
-    for k in range(len(dc.color_order)):
-        mqtt.send_message('find_color', [dc.color_sig[k], dc.color_order[k]])
-        print(dc.color_order[k], dc.color_sig[k])
-    dc.color_order = []
-    dc.color_sig = []
-
 
 main()
