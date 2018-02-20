@@ -36,7 +36,7 @@ quit_button["command"] = lambda: quit_program(mqtt_client)
 
 spin_button = ttk.Button(main_frame, text="Spin")
 spin_button.grid(row=3, column=2)
-spin_button["command"] = lambda: ['spin_for_the_ball', [robot]]
+spin_button["command"] = lambda: mqtt_client.send_message('spin_for_the_ball')
 
 chase_button = ttk.Button(main_frame,  text="Chase")
 chase_button.grid(row=3, column=3)
