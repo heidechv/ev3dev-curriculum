@@ -9,8 +9,9 @@ import mqtt_remote_method_calls as com
 
 
 class Delegate(object):
-    def __init__(self, robot):
-        self.robot = robot
+    def __init__(self, left_motor, right_motor):
+        self.left_motor = left_motor
+        self.right_motor = right_motor
 
     def chase_the_ball(self):
         print('Chase the ball')
