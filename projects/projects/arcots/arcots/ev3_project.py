@@ -19,7 +19,7 @@ def spin_for_the_ball(self, robo):
         pixy_x = robo.get_pixy_x()
         print(pixy_x)
         if pixy_x is None:
-            robo.drive(30, -30)
+            robot.drive(30, -30)
         elif pixy_x < 140:
             robot.drive(-30, 30)
         elif pixy_x > 170:
