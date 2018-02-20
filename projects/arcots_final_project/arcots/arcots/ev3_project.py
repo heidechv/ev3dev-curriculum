@@ -20,7 +20,7 @@ class Delegate(object):
             print(front_sensor)
             if front_sensor < 45:
                 self.robot.drive(300, 300)
-            elif front_sensor > 20:
+            elif front_sensor > 30:
                 self.robot.stop()
                 ev3.Sound.speak('I am tired')
 
