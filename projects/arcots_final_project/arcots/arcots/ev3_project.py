@@ -23,7 +23,7 @@ class Delegate(object):
             elif front_sensor > 20:
                 self.robot.stop()
                 ev3.Sound.speak('I am tired')
-            
+
 
 
 """The robot will spin to find and track an object in front of the pixy camera"""
