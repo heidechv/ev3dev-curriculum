@@ -16,11 +16,11 @@ class Delegate(object):
         print('Chase the ball')
         ev3.Sound.speak('Time for some cardio').wait()
         while True:
-            front_sensor = self.robot.get_front_proximity_sensor_reading()
+            front_sensor = self.robot.ir_sensor.proximity
             print(front_sensor)
             if front_sensor < 420:
                 self.robot.start_moving(40, 40)
-            elif front_sensor > 550:
+            elif front_sensor > 20:
                 self.robot.stop_moving()
             else:
                 self.robot.stop_moving()
