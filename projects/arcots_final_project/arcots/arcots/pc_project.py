@@ -43,23 +43,3 @@ chase_button.grid(row=3, column=3)
 chase_button["command"] = lambda: mqtt_client.send_message('chase_the_ball')
 
 root.mainloop()
-
-
-def spin_for_the_ball(self, robo):
-    ev3.Sound.speak('Time to work my obliques').wait()
-    while True:
-        pixy_x = robo.get_pixy_x()
-        print(pixy_x)
-        if pixy_x is None:
-            robo.drive(30, -30)
-        elif pixy_x < 140:
-            robot.drive(-30, 30)
-        elif pixy_x > 170:
-            robot.drive(30, -30)
-        else:
-            robot.stop()
-            ev3.Sound.speak('I am tired')
-
-
-
-

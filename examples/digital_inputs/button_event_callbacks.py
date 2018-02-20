@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 This module prints messages when buttons on the IR remote or the EV3 primary buttons are pressed and released.
-Copying the boilerplate code can save you a lot of typing if using buttons in your own projects.
+Copying the boilerplate code can save you a lot of typing if using buttons in your own arcots_final_project.
 
 Author: David Fisher.
 """
