@@ -19,7 +19,8 @@ class Delegate(object):
             front_sensor = self.robot.ir_sensor.proximity
             print(front_sensor)
             if front_sensor < 420:
-                self.robot.drive(40, 40)
+                self.left_motor.run_forever(speed_sp=40)
+                self.right_motor.run_forever(speed_sp=40)
             elif front_sensor > 20:
                 self.robot.stop()
             else:
