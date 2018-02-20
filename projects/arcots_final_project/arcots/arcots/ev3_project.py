@@ -27,7 +27,7 @@ class Delegate(object):
     def spin_for_the_ball(self):
         ev3.Sound.speak('Time to work my obliques').wait()
         while True:
-            pixy_x = self.find_color
+            pixy_x = self.robot.find_color
             print(pixy_x)
             if pixy_x is None:
                 self.robot.drive(30, -30)
