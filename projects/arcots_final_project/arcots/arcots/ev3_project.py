@@ -22,9 +22,8 @@ class Delegate(object):
                 self.robot.drive(300, 300)
             elif front_sensor > 20:
                 self.robot.stop()
-            else:
-                self.robot.stop()
                 ev3.Sound.speak('I am tired')
+            
 
 
 """The robot will spin to find and track an object in front of the pixy camera"""
