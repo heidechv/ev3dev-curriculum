@@ -1,76 +1,62 @@
-import tkinter
+import tkinter as tk
 from tkinter import ttk
 import mqtt_remote_method_calls as com
-import ev3dev.ev3 as ev3
-import time
-import robot_controller as robo
-
-class DataContainer(object):
-    def __init__(self):
-
+from PIL import Image, ImageTk
 
 
 class MyDelegate(object):
+    def __init__(self, root):
+        self.root = root
+
     def shutdown(self):
         print('Exiting')
+        self.root.destroy()
         exit()
 
 
 def main():
-    robot = robo.Snatch3r()
-    dc = DataContainer()
 
-    my_delegate = MyDelegate()
+    root = tk.Tk()
+    root.title('Mario Kart!')
 
-    mqtt = com.MqttClient(my_delegate)
+    my_del = MyDelegate(root)
+
+    mqtt = com.MqttClient(my_del)
     mqtt.connect_to_ev3()
-
-    root = tkinter.Tk()
-    root.title('Go To A Color')
 
     main_frame = ttk.Frame(root, padding=10)
     main_frame.grid()
 
-    red_button = ttk.Button(main_frame, text="Go To Red")
-    red_button.grid(row=1, column=1)
-    red_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_RED)
+    image = Image.open("C:\\Users\\kipphr\\Downloads\\mariokart.jpg")
+    photo = ImageTk.PhotoImage(image)
+    background_label = tk.Label(main_frame, image=photo)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-    white_button = ttk.Button(main_frame, text="Go To White")
-    white_button.grid(row=1, column=2)
-    white_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_WHITE)
+    forward_button = ttk.Button(main_frame, text="Forward")
+    forward_button.grid(row=1, column=2)
+    forward_button['command'] = lambda: move(mqtt, 'forward')
+    root.bind('<Up>', lambda event: move(mqtt, 'forward'))
 
-    black_button = ttk.Button(main_frame, text="Go To Black")
-    black_button.grid(row=1, column=3)
-    black_button['command'] = lambda: drive_to_color(ev3.ColorSensor.COLOR_BLACK)
+    right_button = ttk.Button(main_frame, text="Right")
+    right_button.grid(row=2, column=3)
+    right_button['command'] = lambda: move(mqtt, 'right')
+    root.bind('<Right>', lambda event: move(mqtt, 'right'))
+
+    left_button = ttk.Button(main_frame, text="Left")
+    left_button.grid(row=2, column=1)
+    left_button['command'] = lambda: move(mqtt, 'left')
+    root.bind('<Left>', lambda event: move(mqtt, 'left'))
+
+    stop_button = ttk.Button(main_frame, text="Stop")
+    stop_button.grid(row=3, column=2)
+    left_button['command'] = lambda: move(mqtt, 'stop')
+    root.bind('<space>', lambda event: move(mqtt, 'stop'))
 
     root.mainloop()
 
 
-def drive_to_color(color_to_seek):
-    ev3.Sound.speak("Seeking your color").wait()
-
-    robot.drive(600, 600)
-
-    while True:
-        if robot.color_sensor.color == color_to_seek:
-            robot.stop()
-            break
-
-    ev3.Sound.speak("Found your color").wait()
-
-
-def handle_shutdown(button_state, dc):
-    """Exit the program."""
-    if button_state:
-        dc.running = False
-
-
-def enter_pressed(dc, mqtt):
-    for k in range(len(dc.color_order)):
-        mqtt.send_message('find_color', [dc.color_sig[k], dc.color_order[k]])
-        print(dc.color_order[k], dc.color_sig[k])
-    dc.color_order = []
-    dc.color_sig = []
+def move(mqtt, direction):
+    mqtt.send_message('drive_by_colors', [direction])
 
 
 main()

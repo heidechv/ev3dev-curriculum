@@ -165,13 +165,13 @@ class Snatch3r(object):
         self.stop()
         return False
 
-    def find_color(self,color_sig, color):
+    def find_color(self, color_sig, color):
         self.pixy.mode = color_sig
         turn_speed = 100
 
         color_found = False
 
-        while not color_found :
+        while not color_found:
             x = self.pixy.value(1)
 
             if x < 150:
@@ -199,3 +199,20 @@ class Snatch3r(object):
                 self.drive(speed, -speed)
                 self.stop()
                 self.drive(speed, speed)
+
+    def drive_by_colors(self, direction):
+        if direction == 'right':
+            self.turn_right(150)
+        if direction == 'left':
+            self.turn_left(150)
+        if direction == 'stop':
+            self.stop()
+        if direction == 'forward':
+            self.drive(150, 150)
+            if self.color_sensor.color == ev3.ColorSensor.COLOR_BLACK:
+                self.turn_degrees(720, 500)
+                self.drive(150, 150)
+            if self.color_sensor.color == ev3.ColorSensor.COLOR_RED:
+                self.drive(900, 900)
+                time.sleep(3)
+                self.drive(150, 150)

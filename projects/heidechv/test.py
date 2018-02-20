@@ -15,7 +15,7 @@ def find_color(self, color_sig, color):
     ev3.Sound.speak(color).wait()
 
 
-robot.pixy.mode = "SIG1"
+bot.pixy.mode = "SIG1"
 width = robot.pixy.value(3)
 height = robot.pixy.value(4)
 
