@@ -24,23 +24,20 @@ class Delegate(object):
                 self.robot.stop()
                 ev3.Sound.speak('I am tired')
 
-
-
-"""The robot will spin to find and track an object in front of the pixy camera"""
-# def spin_for_the_ball(self, robo):
-#     ev3.Sound.speak('Time to work my obliques').wait()
-#     while True:
-#         pixy_x = robo.get_pixy_x()
-#         print(pixy_x)
-#         if pixy_x is None:
-#             robot.drive(30, -30)
-#         elif pixy_x < 140:
-#             robot.drive(-30, 30)
-#         elif pixy_x > 170:
-#             robot.drive(30, -30)
-#         else:
-#             robot.stop()
-#             ev3.Sound.speak('I am tired')
+    def spin_for_the_ball(self):
+        ev3.Sound.speak('Time to work my obliques').wait()
+        while True:
+            pixy_x = self.find_color
+            print(pixy_x)
+            if pixy_x is None:
+                self.robot.drive(30, -30)
+            elif pixy_x < 140:
+                self.robot.drive(-30, 30)
+            elif pixy_x > 170:
+                self.robot.drive(30, -30)
+            else:
+                self.robot.stop()
+                ev3.Sound.speak('I am tired')
 
 
 """ The robot will display through an mqtt client  """
