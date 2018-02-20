@@ -7,10 +7,29 @@ import time
 import robot_controller as robo
 import mqtt_remote_method_calls as com
 
+class Delegate(object):
+    def __init__(self, robot):
+        self.robot = robot
+    def chase_the_ball(self):
+        print('Chase the ball')
+        ev3.Sound.speak('Time for some cardio').wait()
+        while True:
+            front_sensor = self.robot.get_front_proximity_sensor_reading()
+            print(front_sensor)
+            if front_sensor < 420:
+                self.robot.start_moving(40, 40)
+            elif front_sensor > 550:
+                self.robot.stop_moving()
+            else:
+                self.robot.stop_moving()
+                ev3.Sound.speak('I am tired')
+
 
 robot = robo.Snatch3r()
-mqtt_client = com.MqttClient(robot)
+delegate = Delegate(robot)
+mqtt_client = com.MqttClient(delegate)
 mqtt_client.connect_to_pc()
+
 
 
 def spin_for_the_ball(self, robo):
@@ -28,19 +47,6 @@ def spin_for_the_ball(self, robo):
             robot.stop()
             ev3.Sound.speak('I am tired')
 
-def chase_the_ball(robot):
-    ev3.Sound.speak('Time for some cardio').wait()
-    while True:
-        front_sensor = robot.get_front_proximity_sensor_reading()
-        print(front_sensor)
-        if front_sensor < 420:
-            robot.start_moving(40, 40)
-        elif front_sensor > 550:
-            robot.stop_moving()
-        else:
-            robot.stop_moving()
-            ev3.Sound.speak('I am tired')
-
 
 """ The robot will display through an mqtt client  """
 
@@ -49,3 +55,6 @@ def main():
     print('Chasing the carrot')
     print('--------------------')
     ev3.Sound.speak('I want the carrot').wait()
+    robot.loop_forever()
+
+main()

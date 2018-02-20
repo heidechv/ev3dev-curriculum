@@ -40,7 +40,7 @@ spin_button["command"] = lambda: ['spin_for_the_ball', [robot]]
 
 chase_button = ttk.Button(main_frame,  text="Chase")
 chase_button.grid(row=3, column=3)
-chase_button["command"] = lambda: ['chase_the_ball', [robot]]
+chase_button["command"] = lambda: mqtt_client.send_message('chase_the_ball')
 
 root.mainloop()
 
@@ -61,16 +61,5 @@ def spin_for_the_ball(self, robo):
             ev3.Sound.speak('I am tired')
 
 
-def chase_the_ball(robot):
-    ev3.Sound.speak('Time for some cardio').wait()
-    while True:
-        front_sensor = robot.get_front_proximity_sensor_reading()
-        print(front_sensor)
-        if front_sensor < 420:
-            robot.start_moving(40, 40)
-        elif front_sensor > 550:
-            robot.stop_moving()
-        else:
-            robot.stop_moving()
-            ev3.Sound.speak('I am tired')
+
 
