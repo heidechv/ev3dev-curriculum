@@ -31,7 +31,7 @@ mqtt_client = com.MqttClient(delegate)
 mqtt_client.connect_to_pc()
 
 
-
+"""The robot will spin to find and track an object in front of the pixy camera"""
 def spin_for_the_ball(self, robo):
     ev3.Sound.speak('Time to work my obliques').wait()
     while True:
