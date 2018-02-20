@@ -25,7 +25,7 @@ def spin_for_the_ball(self, robo):
         elif pixy_x > 170:
             robot.drive(30, -30)
         else:
-            robot.drive()
+            robot.stop()
             ev3.Sound.speak('I am tired')
 
 def chase_the_ball(robot):
