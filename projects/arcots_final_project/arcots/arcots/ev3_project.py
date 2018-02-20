@@ -9,9 +9,8 @@ import mqtt_remote_method_calls as com
 
 
 class Delegate(object):
-    def __init__(self, left_motor, right_motor):
-        self.left_motor = left_motor
-        self.right_motor = right_motor
+    def __init__(self, robot):
+        self.robot = robot
 
     def chase_the_ball(self):
         print('Chase the ball')
@@ -20,8 +19,7 @@ class Delegate(object):
             front_sensor = self.robot.ir_sensor.proximity
             print(front_sensor)
             if front_sensor < 420:
-                self.left_motor.run_forever(speed_sp=40)
-                self.right_motor.run_forever(speed_sp=40)
+                self.robot.drive(40, 40)
             elif front_sensor > 20:
                 self.robot.stop()
             else:
