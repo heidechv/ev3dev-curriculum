@@ -28,8 +28,6 @@ main_frame.grid()
 canvas = tkinter.Canvas(main_frame, background="lightgray", width=320, height=200)
 canvas.grid(columnspan=2)
 
-rect_tag = canvas.create_rectangle(150, 90, 170, 110, fill="blue")
-
 quit_button = ttk.Button(main_frame, text="Quit")
 quit_button.grid(row=3, column=1)
 quit_button["command"] = lambda: quit_program(mqtt_client)
